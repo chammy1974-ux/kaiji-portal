@@ -1,6 +1,6 @@
 /* 海事代理士会ポータル Service Worker
    ビルドごとに CACHE 名が変わり、古いキャッシュは activate で削除されます。 */
-const CACHE='kaiji-portal-410fec8f67';
+const CACHE='kaiji-portal-4c52d45107';
 const CORE=['./','./index.html','./manifest.webmanifest'];
 
 self.addEventListener('install',e=>{

@@ -633,13 +633,13 @@ footer.foot{margin-top:70px; padding:22px 0 0; border-top:1px solid var(--line);
 /* ---------- 支部役員一覧 ---------- */
 .br-wrap{margin-top:8px;border:1px solid var(--line);border-radius:4px;background:var(--card);overflow-x:auto;max-width:100%}
 table.br{width:100%;min-width:1080px;border-collapse:collapse;font-family:var(--sans);font-size:12.5px}
-table.br th{background:var(--navy);color:#f4ead1;font-weight:500;font-size:10.5px;letter-spacing:.08em;padding:9px 10px;text-align:left;white-space:nowrap;border-right:1px solid rgba(244,241,233,.16)}
+table.br th{background:var(--navy);color:#f4ead1;font-weight:500;font-size:11.5px;letter-spacing:.06em;padding:9px 10px;text-align:left;white-space:nowrap;border-right:1px solid rgba(244,241,233,.16)}
 table.br th:last-child{border-right:0}
 table.br td{padding:9px 10px;border-top:1px solid var(--line);border-right:1px solid #efe9dc;vertical-align:top;line-height:1.55}
 table.br td:last-child{border-right:0}
 table.br tbody tr:nth-child(even) td{background:#fdfbf5}
-table.br .brn{font-family:var(--mincho,'Shippori Mincho',serif);font-size:13.5px;color:var(--navy);white-space:nowrap}
-table.br .und{color:var(--accent);font-size:11.5px}
+table.br .brn{font-family:var(--mincho,'Shippori Mincho',serif);font-size:12.5px;color:var(--navy);white-space:nowrap}
+table.br .und{color:var(--accent);font-size:12.5px}
 table.br .gm{color:#a9a294}
 .br-note{font-family:var(--sans);font-size:11.5px;color:#7d7666;margin-top:9px;line-height:1.7}
 /* スマホは横スクロールで全列・全支部を見せる */
@@ -648,12 +648,12 @@ table.br .gm{color:#a9a294}
 @media (max-width:760px){
   .br-hint{display:flex}
   .br-wrap{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border-radius:4px}
-  table.br{min-width:1120px;width:1120px;font-size:12px}
+  table.br{min-width:1180px;width:1180px;font-size:12.5px}
   table.br thead{display:table-header-group}
   table.br tbody tr{display:table-row}
-  table.br td{display:table-cell;border-right:1px solid #f1ece0;border-top:1px solid var(--line);padding:8px 9px;background:transparent}
+  table.br td{display:table-cell;border-right:1px solid #f1ece0;border-top:1px solid var(--line);padding:9px 10px;background:transparent}
   table.br td::before{content:none}
-  table.br th{padding:8px 9px;font-size:10px}
+  table.br th{padding:9px 10px;font-size:11px}
   /* 支部名の列を左に固定 */
   table.br th:first-child,table.br td:first-child{position:sticky;left:0;z-index:2;background:var(--card);box-shadow:1px 0 0 #e7e0d1}
   table.br th:first-child{background:var(--navy);z-index:3}
@@ -841,9 +841,21 @@ table.of tbody tr:nth-child(even) td{background:#fdfbf5}
 @media print{.cm-card{break-inside:avoid}}
 
 /* ---------- 支部の人数バッジ ---------- */
-.br-c{display:inline-block;margin-left:7px;font-family:var(--sans);font-style:normal;font-size:9.5px;color:#8b8577;border:1px solid var(--line);border-radius:8px;padding:0 6px;vertical-align:1px;background:var(--paper2)}
+.br-c{display:inline-block;margin-left:7px;font-family:var(--sans);font-style:normal;font-size:10px;color:#8b8577;border:1px solid var(--line);border-radius:8px;padding:0 6px;vertical-align:1px;background:var(--paper2)}
 table.br .brn{white-space:nowrap}
 .side-build{font-family:var(--sans);font-size:9px;opacity:.45;margin-top:7px;letter-spacing:.03em}
+
+/* ---------- コピー機能 ---------- */
+.art .body,.preamble,.doc-layout,.doc-hero h1{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.art .acts{position:absolute;right:0;top:16px;display:flex;gap:6px}
+.art .acts .anchor{position:static;right:auto;top:auto;opacity:.6}
+.art:hover .acts .anchor{opacity:1}
+.doc-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.cbtn{font-family:var(--sans);font-size:11.5px;letter-spacing:.02em;color:var(--navy2);background:var(--card);
+  border:1px solid var(--line);border-radius:4px;padding:8px 13px;cursor:pointer;transition:.15s}
+.cbtn:hover{border-color:var(--gold);color:var(--accent)}
+.cbtn:active{transform:translateY(1px)}
+@media (hover:none){.art .acts .anchor{opacity:.75}}
 </style>
 </head>
 <body>
@@ -4503,7 +4515,7 @@ function viewDoc(id,artNo){
     const arts=c.articles.map((a,ai)=>{
       const anchor=`#/doc/${d.id}/${encodeURIComponent(a.no)}`;
       return `<article class="art" id="art-${ART_ID(a.no)}-${ci}-${ai}" data-no="${esc(a.no)}">
-        <button class="anchor" data-link="${anchor}">リンク</button>
+        <div class="acts"><button class="anchor" data-link="${anchor}" type="button">リンク</button><button class="anchor" data-copy="art" type="button">コピー</button></div>
         <div class="art-head"><span class="no">${esc(a.no)}</span><span class="at">${esc(a.title||'')}</span></div>
         <div class="body">${renderBody(a.text,d.id)}</div>
       </article>`;
@@ -4521,6 +4533,10 @@ function viewDoc(id,artNo){
         <a class="back" href="#/docs">← 会則集</a>
         <div class="eyebrow">${esc(d.cat)}</div>
         <h1>${esc(d.title)}</h1>
+        <div class="doc-tools">
+          <button class="cbtn" data-copy="doc" type="button">全文をコピー（条番号つき）</button>
+          <button class="cbtn" data-copy="doc-body" type="button">本文だけコピー</button>
+        </div>
       </div>
       <div class="kj" style="text-align:right">${total?'全 '+total+' 条':'条文形式ではありません'}${d.forms?'<br>様式あり':''}</div>
     </div>
@@ -4758,11 +4774,56 @@ document.addEventListener('click',e=>{
   if(j){ e.preventDefault(); const el=document.getElementById(j.dataset.jump); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); return; }
   if(e.target.closest('#cnTop')){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); return; }
 
+  const cp=e.target.closest('[data-copy]');
+  if(cp){
+    e.preventDefault();
+    const mode=cp.dataset.copy;
+    if(mode==='art'){ const a=cp.closest('.art'); if(a) copyText(artText(a)); }
+    else {
+      const did=decodeURIComponent((location.hash.split('/')[2]||''));
+      const dd=(typeof DOCS!=='undefined'?DOCS.find(x=>x.id===did):null)||{title:''};
+      copyText(docText(dd, mode==='doc'));
+    }
+    return;
+  }
   const c=e.target.closest('[data-link]');
   if(c){ const url=location.origin+location.pathname+c.dataset.link; navigator.clipboard?.writeText(url).then(()=>toast('条文リンクをコピーしました'),()=>toast('コピーできませんでした')); e.preventDefault(); }
   const r=e.target.closest('.sm-res .r');
   if(r){ closeSearch(); }
 });
+function plainBody(el){ return ((el&&el.innerText)||'').replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n').trim(); }
+function artText(a){
+  const no=((a.querySelector('.no')||{}).textContent||'').trim();
+  const ti=((a.querySelector('.at')||{}).textContent||'').trim();
+  const b=plainBody(a.querySelector('.body'));
+  return (no+(ti?'（'+ti+'）':'')+'\n'+b).trim();
+}
+function docText(d,withNo){
+  const wrap=document.querySelector('.doc-layout'); if(!wrap) return '';
+  const out=[(d&&d.title)||''];
+  wrap.querySelectorAll('.chapter').forEach(ch=>{
+    const h=ch.querySelector('.chapter-head h2');
+    if(h && h.textContent.trim()!=='本文') out.push('\n■ '+h.textContent.trim());
+    const pre=ch.querySelector('.preamble'); if(pre && plainBody(pre)) out.push(plainBody(pre));
+    ch.querySelectorAll('.art').forEach(a=>{ out.push(withNo?artText(a):plainBody(a.querySelector('.body'))); });
+  });
+  return out.filter(x=>String(x).trim()).join('\n\n').trim();
+}
+function copyText(t){
+  if(!t) return toast('コピーする内容がありません');
+  const done=()=>toast('コピーしました');
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(done,()=>fallbackCopy(t)); }
+  else fallbackCopy(t);
+  function fallbackCopy(txt){
+    const ta=document.createElement('textarea'); ta.value=txt; ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ ta.setSelectionRange(0,txt.length); }catch(e){}
+    let ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    toast(ok?'コピーしました':'コピーできませんでした。本文を長押しで選択してください');
+  }
+}
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
 
 document.addEventListener('keydown',e=>{
@@ -5691,5 +5752,6 @@ render();
 })();
 
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
