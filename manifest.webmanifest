@@ -1,0 +1,24 @@
+{
+  "name": "日本海事代理士会 会則・手続きポータル",
+  "short_name": "海事代理士会",
+  "description": "定款および22の規則・規程を条文単位で検索。入会から退会、補助者、様式記入例まで。",
+  "lang": "ja",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f1e9",
+  "theme_color": "#0f2c3f",
+  "categories": ["business", "productivity", "reference"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "マイ手続き", "url": "./index.html#/my", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "会則集", "url": "./index.html#/docs", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "様式の記入例", "url": "./index.html#/guide", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
